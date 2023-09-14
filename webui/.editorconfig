@@ -1,0 +1,16 @@
+[*]
+indent_style = space
+indent_size = 2
+
+# 特定檔案附檔名設定
+[*.js]
+tab_size = 2
+
+[*.jsx]
+tab_size = 2
+
+[*.ts]
+tab_size = 2
+
+[*.tsx]
+tab_size = 2
