@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Form, Input, Button, Select } from "antd";
 
@@ -66,11 +67,17 @@ const InputForm: React.FC = () => {
       </Form.Item>
       <Form.Item
         noStyle
-        shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
+        shouldUpdate={(prevValues, currentValues) =>
+          prevValues.gender !== currentValues.gender
+        }
       >
         {({ getFieldValue }) =>
           getFieldValue("gender") === "other" ? (
-            <Form.Item name="customizeGender" label="Customize Gender" rules={[{ required: true }]}>
+            <Form.Item
+              name="customizeGender"
+              label="Customize Gender"
+              rules={[{ required: true }]}
+            >
               <Input />
             </Form.Item>
           ) : null
