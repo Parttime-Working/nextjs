@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ItemIdParams, ItemIdParamsSchema } from "../lib/ItemIdParams";
+import { ItemIdParams, ItemIdParamsSchema } from "../lib/ItemIdParamsSchema";
 import { db } from "@/lib/db";
 import { ZodIssue } from "zod";
 import { HttpStatusCode } from "axios";

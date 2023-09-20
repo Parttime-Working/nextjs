@@ -1,8 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
+interface FormData {
+  username: string;
+  items: Array<{ item: string; qty: number }>;
+}
 
-async function ItemInsert(data) {
+async function ItemInsert(data: FormData) {
   // 创建一个新表单并插入到数据库
   const newForm = await prisma.rcv_form.create({
     data: {
