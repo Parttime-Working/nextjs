@@ -7,5 +7,8 @@ GET http://localhost:3000/api/v1/items/1 HTTP/1.1
 ### test proxy
 GET http://localhost:3000/api/syspx-proxy?$DB=SLDEV&$SP=A_TEST&input=temptables&$FIELDS=output&$RS=1 HTTP/1.1
 
+### test proxy
+GET http://localhost:3000/api/sysco-proxy?Open&comp=SYS&fields=cname,dcode,dptname,level HTTP/1.1
+
 ### test company api
 GET http://syspx.sysco/getsqlxml.asp?$DB=SLDEV&$SP=A_TEST&input=temptables&$FIELDS=output&$RS=1 HTTP/1.1
