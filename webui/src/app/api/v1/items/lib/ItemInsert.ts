@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { db } from "@/lib/db";
 
 interface FormData {
   username: string;
@@ -8,7 +8,7 @@ interface FormData {
 
 async function ItemInsert(data: FormData) {
   // 创建一个新表单并插入到数据库
-  const newForm = await prisma.rcv_form.create({
+  const newForm = await db.rcv_form.create({
     data: {
       empno: '22004',
       name: data.username,

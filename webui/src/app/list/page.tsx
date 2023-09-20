@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  AutoComplete,
   Breadcrumb,
   Button,
   Checkbox,
@@ -12,13 +13,19 @@ import {
   theme,
 } from "antd";
 import itemApiClient from "./lib/ItemApiClient";
+import syscoWebClient from "@/lib/SyscoClient/syscoWebClient";
+import { unknown } from "zod";
+import { useEmployeesAutocomplete } from "./hooks/useEmployeesAutocomplete";
 
 const { Content } = Layout;
 
-const App: React.FC = () => {
+const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  // autocomplete
+  const {searchValue, options, onOptionChange} = useEmployeesAutocomplete();
 
   async function onFinish(values: any) {
     // console.log("finish, call api?");
@@ -30,6 +37,10 @@ const App: React.FC = () => {
   function onFinishFailed() {
     console.log("pop msg?");
   }
+
+  const onSelect = (data: string) => {
+    console.log("onSelect", data);
+  };
 
   return (
     <>
@@ -65,6 +76,21 @@ const App: React.FC = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
+        <Form.Item
+          name="empno"
+          label="工號"
+        >
+          <AutoComplete
+            value={searchValue}
+            options={options}
+            style={{ width: 200 }}
+            onSelect={onSelect}
+            // onSearch={(text) => setOptions(getPanelValue(text))}
+            onChange={onOptionChange}
+            placeholder="control mode"
+          />
+          </Form.Item>
+
           <Form.Item
             label="Username"
             name="username"

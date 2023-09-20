@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import qs from "qs";
 import { parseStringPromise } from "xml2js";
 
+
 export default class SyscoClient {
   private readonly httpClient: AxiosInstance;
 
@@ -12,15 +13,22 @@ export default class SyscoClient {
   // TODO: validate input use zod
   async search(query: Record<string, unknown>) {
     try {
-      const { data: xml, ...resp } = await this.httpClient.get("", {
+      const { data, ...resp } = await this.httpClient.get("", {
         params: query,
-        paramsSerializer: (params) => qs.stringify(params, { encode: false })
+        paramsSerializer: (params) => qs.stringify(params, { encode: false }),
       });
 
-      const data = await parseStringPromise(xml);
-      console.log(data);
+      // resp from proxy is not xml string, don't need to parse
+      if (typeof data === "string") {
+        const parsedData = await parseStringPromise(data);
 
-      // sometimes header is useful, return them
+        // sometimes header is useful, return them
+        return {
+          ...resp,
+          data: parsedData,
+        };
+      }
+
       return {
         ...resp,
         data,
