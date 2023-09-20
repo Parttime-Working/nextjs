@@ -1,22 +1,6 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Item` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Rcv_Form` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 BEGIN TRY
 
 BEGIN TRAN;
-
--- DropForeignKey
-ALTER TABLE [dbo].[Item] DROP CONSTRAINT [Item_formid_fkey];
-
--- DropTable
-DROP TABLE [dbo].[Item];
-
--- DropTable
-DROP TABLE [dbo].[Rcv_Form];
 
 -- CreateTable
 CREATE TABLE [dbo].[rcv_form] (
