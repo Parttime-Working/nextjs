@@ -1,15 +1,15 @@
 "use client";
 
 import syscoWebClient from "@/lib/SyscoClient/syscoWebClient";
-import { AutoComplete } from "antd";
 import { useEffect, useState } from "react";
 
 // senior time
+type Employee = { value: string, cname: string }
 
 export const useEmployeesAutocomplete = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [options, setOptions] = useState<{ value: string }[]>([]);
-  const [allOptions, setAllOptions] = useState<{ value: string }[]>([]);
+  const [options, setOptions] = useState<Employee[]>([]);
+  const [allOptions, setAllOptions] = useState<Employee[]>([]);
 
   useEffect(() => {
     // get all options from the useless api
@@ -31,6 +31,7 @@ export const useEmployeesAutocomplete = () => {
             // @ts-ignore
             ...employee,
             // @ts-ignore
+            cname,
             value,
             label: `${value}(${cname})`,
           };

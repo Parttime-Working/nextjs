@@ -24,6 +24,7 @@ const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const [form] = Form.useForm();
 
   // autocomplete
   const { searchValue, options, search } = useEmployeesAutocomplete();
@@ -40,7 +41,15 @@ const App = () => {
   }
 
   const onSelect = (data: string) => {
-    console.log("onSelect", data);
+    const target = options.find((option) => option.value === data);
+
+    // setCname
+    if (!target) {
+      // should not happen
+      return;
+    }
+
+    form.setFieldValue("username", target.cname);
   };
 
   return (
@@ -61,6 +70,7 @@ const App = () => {
         {/* form */}
         <Form
           name="basic"
+          form={form}
           labelCol={{
             span: 8,
           }}
