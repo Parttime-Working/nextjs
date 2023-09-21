@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 // senior time
 
 export const useEmployeesAutocomplete = () => {
-  const [value, setValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const [options, setOptions] = useState<{ value: string }[]>([]);
   const [allOptions, setAllOptions] = useState<{ value: string }[]>([]);
 
@@ -40,19 +40,19 @@ export const useEmployeesAutocomplete = () => {
       });
   }, []);
 
-  const onChange = async (data: string) => {
+  const search = async (data: string) => {
     // filter options
     const tempOptions = allOptions.filter((option: { value: string }) => {
       return option.value.includes(data);
     });
 
-    setValue(data);
+    setSearchValue(data);
     setOptions(tempOptions);
   };
 
   return {
-    searchValue: value,
+    searchValue,
+    search,
     options,
-    onOptionChange: onChange,
   };
 };

@@ -26,7 +26,7 @@ const App = () => {
   } = theme.useToken();
 
   // autocomplete
-  const { searchValue, options, onOptionChange } = useEmployeesAutocomplete();
+  const { searchValue, options, search } = useEmployeesAutocomplete();
 
   async function onFinish(values: any) {
     // console.log("finish, call api?");
@@ -93,7 +93,7 @@ const App = () => {
               // style={{ width: 200 }}
               onSelect={onSelect}
               // onSearch={(text) => setOptions(getPanelValue(text))}
-              onChange={onOptionChange}
+              onChange={search}
               placeholder="e.g. 22001"
             />
           </Form.Item>
