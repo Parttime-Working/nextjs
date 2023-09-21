@@ -16,6 +16,7 @@ import itemApiClient from "./lib/ItemApiClient";
 import syscoWebClient from "@/lib/SyscoClient/syscoWebClient";
 import { unknown } from "zod";
 import { useEmployeesAutocomplete } from "./hooks/useEmployeesAutocomplete";
+
 const { TextArea } = Input;
 const { Content } = Layout;
 
@@ -53,7 +54,7 @@ const App = () => {
         style={{
           padding: 24,
           margin: 0,
-          minHeight: '80vh',
+          minHeight: "80vh",
           background: colorBgContainer,
         }}
       >
@@ -89,7 +90,7 @@ const App = () => {
             <AutoComplete
               value={searchValue}
               options={options}
-              style={{ width: 200 }}
+              // style={{ width: 200 }}
               onSelect={onSelect}
               // onSearch={(text) => setOptions(getPanelValue(text))}
               onChange={onOptionChange}
@@ -97,26 +98,21 @@ const App = () => {
             />
           </Form.Item>
 
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
+          <Form.Item label="姓名" name="username">
+            <Input readOnly={true} />
+          </Form.Item>
+
+          <Form.Item label="成本中心" name="cost_dept">
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="說明備註"
-            name="remark"
-          >
-            <TextArea rows={4} />
+          <Form.Item label="請領單位" name="rcv_dept">
+            <Input />
           </Form.Item>
 
+          <Form.Item label="說明備註" name="remark">
+            <TextArea rows={4} />
+          </Form.Item>
 
           <Form.Item
             wrapperCol={{

@@ -4,6 +4,8 @@ import { db } from "@/lib/db";
 interface FormData {
   empno: string;
   username: string;
+  cost_dept: string;
+  rcv_dept: string;
   items: Array<{ item: string; qty: number }>;
   remark: string;
 }
@@ -14,11 +16,12 @@ async function ItemInsert(data: FormData) {
     data: {
       empno: data.empno,
       name: data.username,
+      cost_dept: data.cost_dept,
+      rcv_dept: data.rcv_dept,
       items: {
         create: [
           { item: 'Product 1', qty: 5 },
           { item: 'Product 2', qty: 3 },
-          // 添加更多产品...
         ],
       },
       remark: data.remark
