@@ -93,7 +93,7 @@ const App = () => {
               onSelect={onSelect}
               // onSearch={(text) => setOptions(getPanelValue(text))}
               onChange={onOptionChange}
-              placeholder="control mode"
+              placeholder="e.g. 22001"
             />
           </Form.Item>
 
@@ -124,8 +124,8 @@ const App = () => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit">
-              Submit
+            <Button type="primary" htmlType="submit" ghost>
+              確認新增
             </Button>
           </Form.Item>
         </Form>
