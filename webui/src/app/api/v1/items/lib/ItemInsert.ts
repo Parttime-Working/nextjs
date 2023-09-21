@@ -11,7 +11,7 @@ interface FormData {
 }
 
 async function ItemInsert(data: FormData) {
-  // 创建一个新表单并插入到数据库
+  // 創建一個新表單並插入到數據庫
   const newForm = await db.rcv_form.create({
     data: {
       empno: data.empno,
@@ -19,15 +19,12 @@ async function ItemInsert(data: FormData) {
       cost_dept: data.cost_dept,
       rcv_dept: data.rcv_dept,
       items: {
-        create: [
-          { item: 'Product 1', qty: 5 },
-          { item: 'Product 2', qty: 3 },
-        ],
+        create: data.items,
       },
       remark: data.remark
     },
     include: {
-      items: true, // 用于返回关联产品的信息
+      items: true, // 用於返回關聯產品的信息
     },
   });
 
