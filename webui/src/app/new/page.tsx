@@ -50,6 +50,7 @@ const App = () => {
     }
 
     form.setFieldValue("username", target.cname);
+    form.setFieldValue("rcv_dept", target.rcv_dept);
   };
 
   return (
