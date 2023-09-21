@@ -33,8 +33,6 @@ export async function GET(
 
   const item = await db.item.findUnique({ where: { id: itemId } });
 
-  console.log(itemId, item);
-
   // item can be null
   if (!item) {
     // can refactor out like BadRequestError

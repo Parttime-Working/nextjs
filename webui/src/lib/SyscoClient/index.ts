@@ -1,21 +1,17 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import qs from "qs";
 import { parseStringPromise } from "xml2js";
+import BaseClient from "../BaseClient";
 
 
-export default class SyscoClient {
-  private readonly httpClient: AxiosInstance;
-
-  constructor(config: AxiosRequestConfig) {
-    this.httpClient = axios.create(config);
-  }
-
+export default class SyscoClient extends BaseClient {
   // TODO: validate input use zod
   async search(query: Record<string, unknown>) {
     try {
       const { data, ...resp } = await this.httpClient.get("", {
         params: query,
-        paramsSerializer: (params) => qs.stringify(params, { encode: false }),
+        paramsSerializer: (params: Record<string, any>) => qs.stringify(params, { encode: false }),
+        // timeout: 1000,
       });
 
       // resp from proxy is not xml string, don't need to parse

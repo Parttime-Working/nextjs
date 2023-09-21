@@ -2,31 +2,12 @@ import { db } from "@/lib/db";
 import { HttpStatusCode } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import qs from "qs";
-import { z } from "zod";
-
-const PaginationSchema = z.object({
-  page: z
-    .preprocess((process) => parseInt(String(process)), z.number().min(1))
-    .default(1),
-  pageSize: z
-    .preprocess((process) => parseInt(String(process)), z.number().min(1))
-    .default(25),
-});
-
-const SearchParamsSchema = z
-  .object({
-    empno: z.string().optional(),
-    name: z.string().optional(),
-    process: z
-      .preprocess((process) => parseInt(String(process)), z.number())
-      .optional(),
-  })
-  .merge(PaginationSchema);
+import { FormSearchParamsSchema } from "./lib/FormSearchParams";
 
 export async function GET(req: NextRequest) {
   const queryParams = qs.parse(req.nextUrl.search.slice(1));
 
-  const parsedQuery = SearchParamsSchema.safeParse(queryParams);
+  const parsedQuery = FormSearchParamsSchema.safeParse(queryParams);
 
   if (!parsedQuery.success) {
     return NextResponse.json(
@@ -38,8 +19,6 @@ export async function GET(req: NextRequest) {
   }
 
   const query = parsedQuery.data;
-  // console.log(query);
-
   const searchCondition = {
     ...(query.empno && {
       empno: { startsWith: query.empno },
@@ -55,9 +34,13 @@ export async function GET(req: NextRequest) {
       where: searchCondition,
       skip: query.pageSize * (query.page - 1),
       take: query.pageSize,
+      include: {
+        items: true,
+      },
     }),
     db.rcv_form.count({ where: searchCondition }),
   ]);
+
 
   return NextResponse.json(
     {

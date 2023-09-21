@@ -3,99 +3,63 @@
 import React from "react";
 import { DownOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
-import { Badge, Breadcrumb, Dropdown, Space, Table, Layout } from "antd";
+import { Badge, Breadcrumb, Dropdown, Space, Table, Layout, Spin } from "antd";
+import useSearchForms from "./hooks/useSearchForms";
+import {
+  Form,
+  Item,
+} from "@/lib/ApiGatewayClient/services/responses/FormSearchResponseSchema";
 
 const { Content } = Layout;
 
-interface DataType {
-  key: React.Key;
-  name: string;
-  platform: string;
-  version: string;
-  upgradeNum: number;
-  creator: string;
-  createdAt: string;
-}
-
-interface ExpandedDataType {
-  key: React.Key;
-  date: string;
-  name: string;
-  upgradeNum: string;
-}
-
-
 const ViewData: React.FC = () => {
-  const expandedRowRender = () => {
-    const columns: TableColumnsType<ExpandedDataType> = [
-      { title: "Date", dataIndex: "date", key: "date" },
-      { title: "Name", dataIndex: "name", key: "name" },
-      {
-        title: "Status",
-        key: "state",
-        render: () => <Badge status="success" text="Finished" />,
-      },
-      { title: "Upgrade Status", dataIndex: "upgradeNum", key: "upgradeNum" },
-      {
-        title: "Action",
-        dataIndex: "operation",
-        key: "operation",
-        render: () => (
-          <Space size="middle">
-            <a>Pause</a>
-            <a>Stop</a>
-          </Space>
-        ),
-      },
-    ];
+  const { forms, isLoading, searchParams, setSearchParams, pagination } =
+    useSearchForms();
 
-    const data = [];
-    for (let i = 0; i < 3; ++i) {
-      data.push({
-        key: i.toString(),
-        date: "2014-12-24 23:12:00",
-        name: "This is production name",
-        upgradeNum: "Upgraded: 56",
-      });
-    }
-    return <Table columns={columns} dataSource={data} pagination={false} />;
-  };
-
-  const columns: TableColumnsType<DataType> = [
+  const columns: TableColumnsType<Form> = [
+    { title: "ID", dataIndex: "id", key: "id" },
+    { title: "EmpNo", dataIndex: "empno", key: "empno" },
     { title: "Name", dataIndex: "name", key: "name" },
-    { title: "Platform", dataIndex: "platform", key: "platform" },
-    { title: "Version", dataIndex: "version", key: "version" },
-    { title: "Upgraded", dataIndex: "upgradeNum", key: "upgradeNum" },
-    { title: "Creator", dataIndex: "creator", key: "creator" },
-    { title: "Date", dataIndex: "createdAt", key: "createdAt" },
-    { title: "Action", key: "operation", render: () => <a>Publish</a> },
+    { title: "RCVDept", dataIndex: "rcv_dept", key: "rcv_dept" },
+    { title: "Remark", dataIndex: "remark", key: "remark" },
+    { title: "CreatedAt", dataIndex: "created_at", key: "created_at" },
+    { title: "Process", dataIndex: "process", key: "process" },
+    { title: "CostDept", dataIndex: "cost_dept", key: "cost_dept" },
   ];
 
-  const data: DataType[] = [];
-  for (let i = 0; i < 3; ++i) {
-    data.push({
-      key: i.toString(),
-      name: "Screen",
-      platform: "iOS",
-      version: "10.3.4.5654",
-      upgradeNum: 500,
-      creator: "Jack",
-      createdAt: "2014-12-24 23:12:00",
-    });
-  }
+  const expandedRowRender = ({ items }: Form) => {
+    const columns: TableColumnsType<Item> = [
+      // { title: "Id", dataIndex: "id", key: "id" },
+      { title: "料號", dataIndex: "itemno", key: "itemno" },
+      { title: "數量", dataIndex: "qty", key: "qty" },
+      // { title: "Formid", dataIndex: "formid", key: "formid" },
+    ];
+
+    return <Table columns={columns} dataSource={items} pagination={false} />;
+  };
 
   return (
-    <>
-      <Content
-        className="mt-6 p-6 bg-white"
-      >
-        <Table
-          columns={columns}
-          expandable={{ expandedRowRender, defaultExpandedRowKeys: ["0"] }}
-          dataSource={data}
-        />
-      </Content>
-    </>
+    <Content className="mt-6 p-6 bg-white">
+      <Table
+        columns={columns}
+        dataSource={forms}
+        onChange={(pagination) => {
+          setSearchParams({
+            ...searchParams,
+            page: pagination.current,
+          });
+        }}
+        loading={isLoading}
+        pagination={{
+          current: pagination.page,
+          defaultCurrent: 1,
+          total: pagination.total,
+          pageSize: pagination.pageSize,
+          defaultPageSize: 25,
+        }}
+        expandable={{ expandedRowRender }}
+      />
+    </Content>
   );
 };
 
