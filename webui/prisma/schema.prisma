@@ -21,6 +21,10 @@ model rcv_form {
   remark     String?
   created_at DateTime @default(now())
   process    Int      @default(0)
+
+  @@index([empno])
+  @@index([name])
+  @@index([process])
 }
 
 model item {
