@@ -1,8 +1,21 @@
+"use client";
+
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import { Layout, Menu, MenuProps } from "antd";
+import React from "react";
+import Sider from "./components/Sider";
+
 const inter = Inter({ subsets: ["latin"] });
+
+const { Header, Footer } = Layout;
+
+const navbar: MenuProps["items"] = ["補單作業"].map((key) => ({
+  key,
+  label: `${key}`,
+}));
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +29,32 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body id="app" className={inter.className}>
+        <Layout>
+          <Header style={{ display: "flex", alignItems: "center" }}>
+            <div className="demo-logo" />
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={["補單作業"]}
+              items={navbar}
+            />
+          </Header>
+          <Layout>
+            <Sider />
+            <Layout style={{ padding: "0 24px 24px" }}>
+              {children}
+              <Footer
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                Ant Design ©2023 Created by Ant UED
+              </Footer>
+            </Layout>
+          </Layout>
+        </Layout>
+      </body>
     </html>
   );
 }

@@ -6,7 +6,7 @@ interface FormData {
   username: string;
   cost_dept: string;
   rcv_dept: string;
-  items: Array<{ item: string; qty: number }>;
+  items: Array<{ itemno: string; qty: number }>;
   remark: string;
 }
 

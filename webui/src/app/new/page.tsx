@@ -124,7 +124,7 @@ const App = () => {
           <Form.Item label="物料">
             <Form.List
               name="items"
-              initialValue={[{ item: "", qty: 0 }]}
+              initialValue={[{ itemno: "", qty: 0 }]}
               rules={[
                 {
                   validator: (_, values) => {
@@ -150,7 +150,7 @@ const App = () => {
                     >
                       <Form.Item
                         {...restField}
-                        name={[name, "item"]}
+                        name={[name, "itemno"]}
                         rules={[{ required: true, message: "料號為必填欄位" }]}
                       >
                         <Input placeholder="料號" />
