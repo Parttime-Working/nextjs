@@ -1,0 +1,20 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- AlterTable
+ALTER TABLE [dbo].[rcv_form] ADD [created_at] DATETIME2 NOT NULL CONSTRAINT [rcv_form_created_at_df] DEFAULT CURRENT_TIMESTAMP,
+[process] INT NOT NULL CONSTRAINT [rcv_form_process_df] DEFAULT 0;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH

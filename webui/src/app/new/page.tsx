@@ -114,11 +114,11 @@ const App = () => {
           </Form.Item>
 
           <Form.Item label="成本中心" name="cost_dept">
-            <Input />
+            <Input placeholder="非必填" />
           </Form.Item>
 
           <Form.Item label="請領單位" name="rcv_dept">
-            <Input />
+            <Input placeholder="非必填" />
           </Form.Item>
 
           <Form.Item label="說明備註" name="remark">

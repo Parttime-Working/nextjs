@@ -7,17 +7,20 @@ generator client {
 
 datasource db {
   provider = "sqlserver"
+  // provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model rcv_form {
-  id        Int     @id @default(autoincrement())
-  empno     String
-  name      String
-  items     item[]
-  cost_dept String?
-  rcv_dept  String?
-  remark    String?
+  id         Int      @id @default(autoincrement())
+  empno      String
+  name       String
+  items      item[]
+  cost_dept  String?
+  rcv_dept   String?
+  remark     String?
+  created_at DateTime @default(now())
+  process    Int      @default(0)
 }
 
 model item {
