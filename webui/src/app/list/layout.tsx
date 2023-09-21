@@ -5,11 +5,11 @@ import { Layout, Menu, MenuProps } from "antd";
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Sider, Footer } = Layout;
 
-const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
+const navbar: MenuProps['items'] = ['補單作業'].map((key) => ({
   key,
-  label: `nav ${key}`,
+  label: `${key}`,
 }));
 
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
@@ -41,11 +41,12 @@ export default function ListLayout({
     <Layout>
       <Header style={{ display: 'flex', alignItems: 'center' }}>
         <div className="demo-logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['補單作業']} items={navbar} />
       </Header>
       <Layout>
         <Sider width={200}>
           <Menu
+            theme="dark"
             mode="inline"
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
@@ -55,7 +56,13 @@ export default function ListLayout({
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
           {children}
-
+          <Footer
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            Ant Design ©2023 Created by Ant UED
+          </Footer>
         </Layout>
       </Layout>
     </Layout>

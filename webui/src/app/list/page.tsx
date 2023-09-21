@@ -16,7 +16,7 @@ import itemApiClient from "./lib/ItemApiClient";
 import syscoWebClient from "@/lib/SyscoClient/syscoWebClient";
 import { unknown } from "zod";
 import { useEmployeesAutocomplete } from "./hooks/useEmployeesAutocomplete";
-
+const { TextArea } = Input;
 const { Content } = Layout;
 
 const App = () => {
@@ -25,7 +25,7 @@ const App = () => {
   } = theme.useToken();
 
   // autocomplete
-  const {searchValue, options, onOptionChange} = useEmployeesAutocomplete();
+  const { searchValue, options, onOptionChange } = useEmployeesAutocomplete();
 
   async function onFinish(values: any) {
     // console.log("finish, call api?");
@@ -53,7 +53,7 @@ const App = () => {
         style={{
           padding: 24,
           margin: 0,
-          minHeight: 280,
+          minHeight: '80vh',
           background: colorBgContainer,
         }}
       >
@@ -76,19 +76,25 @@ const App = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-        <Form.Item
-          name="empno"
-          label="工號"
-        >
-          <AutoComplete
-            value={searchValue}
-            options={options}
-            style={{ width: 200 }}
-            onSelect={onSelect}
-            // onSearch={(text) => setOptions(getPanelValue(text))}
-            onChange={onOptionChange}
-            placeholder="control mode"
-          />
+          <Form.Item
+            name="empno"
+            label="工號"
+            rules={[
+              {
+                required: true,
+                message: "請輸入工號!",
+              },
+            ]}
+          >
+            <AutoComplete
+              value={searchValue}
+              options={options}
+              style={{ width: 200 }}
+              onSelect={onSelect}
+              // onSearch={(text) => setOptions(getPanelValue(text))}
+              onChange={onOptionChange}
+              placeholder="control mode"
+            />
           </Form.Item>
 
           <Form.Item
@@ -105,28 +111,12 @@ const App = () => {
           </Form.Item>
 
           <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
+            label="說明備註"
+            name="remark"
           >
-            <Input.Password />
+            <TextArea rows={4} />
           </Form.Item>
 
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
 
           <Form.Item
             wrapperCol={{
