@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json(
     {
-      foo: "bar",
+      body
     },
     { status: 201 }
   );
