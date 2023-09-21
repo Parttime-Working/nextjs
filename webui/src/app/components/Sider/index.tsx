@@ -27,7 +27,7 @@ const items: MenuProps["items"] = [
   {
     key: `/`,
     icon: <DashboardOutlined />,
-    label: "Home",
+    label: "瀏覽補單資料",
   },
   // {
   //   key: `group1`,
@@ -53,7 +53,7 @@ const Sider = () => {
   const { collapsed, handleCollapse } = useCollapse();
 
   return (
-    //
+    // 名稱避免與const Sider衝突
     <Layout.Sider
       // collapsible
       width={200}

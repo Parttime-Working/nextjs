@@ -1,23 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   AutoComplete,
-  Breadcrumb,
   Button,
-  Checkbox,
   Form,
   Input,
   InputNumber,
   Layout,
-  Menu,
-  theme,
   Space,
   message,
 } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import itemApiClient from "./lib/ItemApiClient";
-import { unknown } from "zod";
 import { useEmployeesAutocomplete } from "./hooks/useEmployeesAutocomplete";
 
 const { TextArea } = Input;
@@ -25,9 +20,6 @@ const { Content } = Layout;
 
 const App = () => {
   const minItems = 1;
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
   const [form] = Form.useForm();
 
   // autocomplete
@@ -62,19 +54,7 @@ const App = () => {
 
   return (
     <>
-      <Breadcrumb style={{ margin: "16px 0" }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>List</Breadcrumb.Item>
-        <Breadcrumb.Item>App</Breadcrumb.Item>
-      </Breadcrumb>
-      <Content
-        style={{
-          padding: 24,
-          margin: 0,
-          minHeight: "80vh",
-          background: colorBgContainer,
-        }}
-      >
+      <Content className="mt-6 p-6 bg-white">
         {/* form */}
         <Form
           name="basic"
@@ -118,7 +98,7 @@ const App = () => {
           </Form.Item>
 
           <Form.Item label="姓名" name="username">
-            <Input readOnly={true} />
+            <Input readOnly={true} bordered={false} />
           </Form.Item>
 
           <Form.Item label="物料">
@@ -162,7 +142,11 @@ const App = () => {
                           { required: true, message: "實領數量為必填欄位" },
                         ]}
                       >
-                        <InputNumber min={1} placeholder="實領數量" style={{ width: '100%' }}/>
+                        <InputNumber
+                          min={1}
+                          placeholder="實領數量"
+                          style={{ width: "100%" }}
+                        />
                       </Form.Item>
                       <MinusCircleOutlined onClick={() => remove(name)} />
                     </Space>
