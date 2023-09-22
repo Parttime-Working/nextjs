@@ -57,7 +57,8 @@ const ViewData: React.FC = () => {
           pageSize: pagination.pageSize,
           defaultPageSize: 25,
         }}
-        expandable={{ expandedRowRender }}
+        rowKey="id"
+        expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
       />
     </Content>
   );
