@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   AutoComplete,
   Button,
@@ -14,6 +14,7 @@ import {
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import itemApiClient from "./lib/ItemApiClient";
 import { useEmployeesAutocomplete } from "./hooks/useEmployeesAutocomplete";
+import { useRouter } from "next/router";
 
 const { TextArea } = Input;
 const { Content } = Layout;
@@ -21,6 +22,11 @@ const { Content } = Layout;
 const App = () => {
   const minItems = 1;
   const [form] = Form.useForm();
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const handleButtonClick = () => {
+    // 在按钮点击后，禁用按钮
+    setButtonDisabled(true);
+  };
 
   // autocomplete
   const { searchValue, options, search } = useEmployeesAutocomplete();
@@ -28,8 +34,9 @@ const App = () => {
   async function onFinish(values: any) {
     // console.log("finish, call api?");
     const resp = await itemApiClient.save(values);
-
     console.log(resp);
+    // 完成才取消按鈕鎖定
+    setButtonDisabled(false);
   }
 
   function onFinishFailed(values: any) {
@@ -37,6 +44,7 @@ const App = () => {
     // 報錯
     const msgStr = values?.errorFields?.[0]?.errors?.[0] ?? "";
     message.error(msgStr);
+    setButtonDisabled(false);
   }
 
   const onSelect = (data: string) => {
@@ -185,7 +193,13 @@ const App = () => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit" ghost>
+            <Button
+              type="primary"
+              htmlType="submit"
+              ghost
+              onClick={handleButtonClick}
+              disabled={isButtonDisabled}
+            >
               確認新增
             </Button>
           </Form.Item>
