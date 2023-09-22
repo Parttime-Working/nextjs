@@ -14,7 +14,7 @@ import {
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import itemApiClient from "./lib/ItemApiClient";
 import { useEmployeesAutocomplete } from "./hooks/useEmployeesAutocomplete";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const { TextArea } = Input;
 const { Content } = Layout;
@@ -27,6 +27,7 @@ const App = () => {
     // 在按钮点击后，禁用按钮
     setButtonDisabled(true);
   };
+  const router = useRouter();
 
   // autocomplete
   const { searchValue, options, search } = useEmployeesAutocomplete();
@@ -37,6 +38,7 @@ const App = () => {
     console.log(resp);
     // 完成才取消按鈕鎖定
     setButtonDisabled(false);
+    router.push("/");
   }
 
   function onFinishFailed(values: any) {
