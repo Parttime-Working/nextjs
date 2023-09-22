@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  node:
+    build:
+        context: "./node/"
+        args:
+          NODE_VERSION: ${NODE_VERSION}
+    environment:
+      - TZ=Asia/Taipei
+    expose:
+      - "3000"
+    volumes:
+      - src_code:/srv/:ro
+      - ./ecosystem.config.js:/srv/ecosystem.config.js:ro
+
+    container_name: "${NODE_NAME}"
+    restart: always
+
+volumes:
+  src_code:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './webui/'
+    external: false
+
+networks:
+    default:
+        external:
+            name: demo

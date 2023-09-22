@@ -1,0 +1,15 @@
+ARG NODE_VERSION
+FROM node:${NODE_VERSION}
+
+WORKDIR /srv
+
+RUN yarn install
+# Build nextjs
+RUN yarn build
+
+RUN yarn global add pm2
+RUN pm2 install pm2-logrotate
+RUN pm2 set pm2-logrotate:max_size 10K
+
+# CMD [ "pm2", "start" ]
+ENTRYPOINT [ "pm2-runtime", "start", "ecosystem.config.js" ]
