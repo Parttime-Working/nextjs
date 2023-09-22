@@ -1,9 +1,17 @@
 import { z } from "zod";
 
 export const ItemInsertSchema = z.object({
-  itemId: z.preprocess((itemId) => parseInt(String(itemId), 10), z.number().int()),
+  empno: z.string(),
+  username: z.string(),
+  cost_dept: z.string().optional(),
+  rcv_dept: z.string().optional(),
+  items: z.array(
+    z.object({
+      itemno: z.string(),
+      qty: z.number().int(),
+    })
+  ),
+  remark: z.string().optional(),
 });
 
 export type ItemInsert = z.infer<typeof ItemInsertSchema>;
-
-export default ItemInsertSchema;
