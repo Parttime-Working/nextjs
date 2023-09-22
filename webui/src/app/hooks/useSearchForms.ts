@@ -3,7 +3,7 @@ import {
   PaginationResponse,
 } from "@/lib/ApiGatewayClient/services/responses/FormSearchResponseSchema";
 import { useEffect, useState } from "react";
-import { FormSearchParams } from "../api/v1/forms/lib/FormSearchParams";
+import { FormSearchParams } from "../api/v1/forms/lib/FormSearchParamsSchema";
 import apigWebClient from "@/lib/ApiGatewayClient/apigWebClient";
 import { ZodIssue } from "zod";
 

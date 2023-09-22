@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { HttpStatusCode } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import qs from "qs";
-import { FormSearchParamsSchema } from "./lib/FormSearchParams";
+import { FormSearchParamsSchema } from "./lib/FormSearchParamsSchema";
 
 export async function GET(req: NextRequest) {
   const queryParams = qs.parse(req.nextUrl.search.slice(1));

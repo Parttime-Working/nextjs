@@ -1,7 +1,7 @@
 import {
   FormSearchParams,
   FormSearchParamsSchema,
-} from "@/app/api/v1/forms/lib/FormSearchParams";
+} from "@/app/api/v1/forms/lib/FormSearchParamsSchema";
 import { AxiosInstance } from "axios";
 import {
   FormSearchResponse,
