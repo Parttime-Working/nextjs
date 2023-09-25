@@ -12,3 +12,9 @@ GET http://syspx.sysco/getsqlxml.asp?$DB=SLDEV&$SP=A_TEST&input=temptables&$FIEL
 
 ### test search forms
 GET http://localhost:3000/api/v1/forms?page=1&pageSize=2&name=程 HTTP/1.1
+
+### Search items
+GET http://jkweb.sysco/items/api/v1/items HTTP/1.1
+
+### Get item by id
+GET http://jkweb.sysco/items/api/v1/items/1 HTTP/1.1

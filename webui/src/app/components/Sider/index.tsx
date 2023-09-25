@@ -1,3 +1,5 @@
+'use client';
+
 import { Layout, Menu, MenuProps } from "antd";
 import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
 import React from "react";
