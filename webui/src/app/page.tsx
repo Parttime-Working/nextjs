@@ -18,13 +18,13 @@ const ViewData: React.FC = () => {
 
   const columns: TableColumnsType<Form> = [
     { title: "ID", dataIndex: "id", key: "id" },
-    { title: "EmpNo", dataIndex: "empno", key: "empno" },
-    { title: "Name", dataIndex: "name", key: "name" },
-    { title: "RCVDept", dataIndex: "rcv_dept", key: "rcv_dept" },
-    { title: "Remark", dataIndex: "remark", key: "remark" },
-    { title: "CreatedAt", dataIndex: "created_at", key: "created_at" },
-    { title: "Process", dataIndex: "process", key: "process" },
-    { title: "CostDept", dataIndex: "cost_dept", key: "cost_dept" },
+    { title: "工號", dataIndex: "empno", key: "empno" },
+    { title: "姓名", dataIndex: "name", key: "name" },
+    { title: "請領單位", dataIndex: "rcv_dept", key: "rcv_dept" },
+    { title: "備註", dataIndex: "remark", key: "remark" },
+    { title: "填單日期", dataIndex: "created_at", key: "created_at" },
+    { title: "狀態", dataIndex: "process", key: "process" },
+    // { title: "成本中心", dataIndex: "cost_dept", key: "cost_dept" },
   ];
 
   const expandedRowRender = ({ items }: Form) => {

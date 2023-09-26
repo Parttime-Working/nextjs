@@ -21,16 +21,21 @@ const { Content } = Layout;
 
 const App = () => {
   const minItems = 1;
+  const maxItems = 15;
   const [form] = Form.useForm();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const handleButtonClick = () => {
-    // 在按钮点击后，禁用按钮
+    // 在按鈕點擊後，禁用按鈕避免重複送出
     setButtonDisabled(true);
   };
   const router = useRouter();
 
   // autocomplete
   const { searchValue, options, search } = useEmployeesAutocomplete();
+
+  const onReset = () => {
+    form.resetFields();
+  };
 
   async function onFinish(values: any) {
     // console.log("finish, call api?");
@@ -60,6 +65,16 @@ const App = () => {
 
     form.setFieldValue("username", target.cname);
     form.setFieldValue("rcv_dept", target.rcv_dept);
+  };
+
+  const onAddItem = () => {
+    if (form.getFieldValue("items").length < maxItems) {
+      form.setFieldsValue({
+        items: [...form.getFieldValue("items"), { itemno: "", qty: "" }],
+      });
+    } else {
+        message.error(`已經超過${maxItems}個料號項目，若有需求請另外填單`);
+    }
   };
 
   return (
@@ -111,10 +126,10 @@ const App = () => {
             <Input readOnly={true} bordered={false} />
           </Form.Item>
 
-          <Form.Item label="物料">
+          <Form.Item label="領料內容">
             <Form.List
               name="items"
-              initialValue={[{ itemno: "", qty: 0 }]}
+              initialValue={[{ itemno: "", qty: "" }]}
               rules={[
                 {
                   validator: (_, values) => {
@@ -122,7 +137,7 @@ const App = () => {
 
                     if (formValues && formValues.length < minItems) {
                       return Promise.reject(
-                        new Error(`至少需要${minItems}個物料項目`)
+                        new Error(`至少需要${minItems}個料號項目`)
                       );
                     }
                     return Promise.resolve();
@@ -148,13 +163,11 @@ const App = () => {
                       <Form.Item
                         {...restField}
                         name={[name, "qty"]}
-                        rules={[
-                          { required: true, message: "實領數量為必填欄位" },
-                        ]}
+                        rules={[{ required: true, message: "數量為必填欄位" }]}
                       >
                         <InputNumber
                           min={1}
-                          placeholder="實領數量"
+                          placeholder="數量"
                           style={{ width: "100%" }}
                         />
                       </Form.Item>
@@ -165,7 +178,7 @@ const App = () => {
                   <Form.Item>
                     <Button
                       type="dashed"
-                      onClick={() => add()}
+                      onClick={() => onAddItem()}
                       block
                       icon={<PlusOutlined />}
                     >
@@ -177,9 +190,9 @@ const App = () => {
             </Form.List>
           </Form.Item>
 
-          <Form.Item label="成本中心" name="cost_dept">
+          {/* <Form.Item label="成本中心" name="cost_dept">
             <Input placeholder="非必填" />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item label="請領單位" name="rcv_dept">
             <Input placeholder="非必填" />
@@ -195,15 +208,20 @@ const App = () => {
               span: 16,
             }}
           >
-            <Button
-              type="primary"
-              htmlType="submit"
-              ghost
-              onClick={handleButtonClick}
-              disabled={isButtonDisabled}
-            >
-              確認新增
-            </Button>
+            <Space size={16}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                ghost
+                onClick={handleButtonClick}
+                disabled={isButtonDisabled}
+              >
+                確認新增
+              </Button>
+              <Button htmlType="button" onClick={onReset} danger>
+                清除重填
+              </Button>
+            </Space>
           </Form.Item>
         </Form>
       </Content>

@@ -3,13 +3,11 @@ FROM node:${NODE_VERSION}
 
 WORKDIR /srv
 
-RUN yarn install
-# Build nextjs
-RUN yarn build
-
+RUN apt-get update && apt-get install -y openssl
 RUN yarn global add pm2
 RUN pm2 install pm2-logrotate
 RUN pm2 set pm2-logrotate:max_size 10K
 
 # CMD [ "pm2", "start" ]
 ENTRYPOINT [ "pm2-runtime", "start", "ecosystem.config.js" ]
+# CMD ["sh", "-c", "while true; do sleep 1; done"]
