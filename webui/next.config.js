@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   basePath: '/items',
-  // assetPrefix: `/{process.env.NEXT_PUBLIC_SERVER_PREFIX}`
+  // assetPrefix: '/items'
 }
 
 module.exports = nextConfig
