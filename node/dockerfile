@@ -4,10 +4,14 @@ FROM node:${NODE_VERSION}
 WORKDIR /srv
 
 RUN apt-get update && apt-get install -y openssl
+RUN apt-get dist-upgrade
+RUN corepack enable
+
 RUN yarn global add pm2
 RUN pm2 install pm2-logrotate
 RUN pm2 set pm2-logrotate:max_size 10K
 
-# CMD [ "pm2", "start" ]
-ENTRYPOINT [ "pm2-runtime", "start", "ecosystem.config.js" ]
-# CMD ["sh", "-c", "while true; do sleep 1; done"]
+WORKDIR /srv/webui
+ENTRYPOINT [ "yarn", "start" ]
+# ENTRYPOINT ["sh", "-c", "while true; do sleep 1; done"]
+# ENTRYPOINT [ "pm2-runtime", "start", "ecosystem.config.js" ]
