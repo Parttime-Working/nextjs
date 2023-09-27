@@ -11,7 +11,8 @@ services:
     expose:
       - "3000"
     volumes:
-      - src_code:/srv/webui/
+      - src_code:/srv/webui/:ro
+      - ./logs:/srv/logs
       - ./ecosystem.config.js:/srv/ecosystem.config.js:ro
 
     container_name: "${NODE_NAME}"

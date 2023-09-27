@@ -4,6 +4,9 @@ GET http://localhost:3000/api/v1/items HTTP/1.1
 ### Get item by id
 GET http://localhost:3000/api/v1/items/1 HTTP/1.1
 
+### test search forms
+GET http://localhost:3000/items/api/v1/forms?page=1&pageSize=25 HTTP/1.1
+
 ### test proxy
 GET http://localhost:3000/api/sysco-proxy?Open&comp=SYS&fields=cname,dcode,dptname,level HTTP/1.1
 
@@ -11,7 +14,7 @@ GET http://localhost:3000/api/sysco-proxy?Open&comp=SYS&fields=cname,dcode,dptna
 GET http://syspx.sysco/getsqlxml.asp?$DB=SLDEV&$SP=A_TEST&input=temptables&$FIELDS=output&$RS=1 HTTP/1.1
 
 ### test search forms
-GET http://localhost:3000/api/v1/forms?page=1&pageSize=2&name=程 HTTP/1.1
+GET http://jkweb.sysco/items/api/v1/forms?page=1&pageSize=25 HTTP/1.1
 
 ### Search items
 GET http://jkweb.sysco/items/api/v1/items HTTP/1.1

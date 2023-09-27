@@ -11,7 +11,7 @@ RUN yarn global add pm2
 RUN pm2 install pm2-logrotate
 RUN pm2 set pm2-logrotate:max_size 10K
 
-WORKDIR /srv/webui
-ENTRYPOINT [ "yarn", "start" ]
 # ENTRYPOINT ["sh", "-c", "while true; do sleep 1; done"]
-# ENTRYPOINT [ "pm2-runtime", "start", "ecosystem.config.js" ]
+# WORKDIR /srv/webui
+ENTRYPOINT ["pm2-runtime", "start", "ecosystem.config.js" ]
+# ENTRYPOINT ["pm2", "start", "ecosystem.config.js", "-no-daemon" ]

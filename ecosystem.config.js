@@ -17,8 +17,8 @@ module.exports = {
       // http://pm2.keymetrics.io/docs/usage/environment/#specific-environment-variables
       instance_var: 'NODE_APP_INSTANCE',
       // log_date_format: 'YYYY-MM-DD HH:mm Z',
-      error_file: './logs/nextjs/error.log',
-      out_file: './logs/nextjs/service.log',
+      error_file: '../logs/nextjs/web.log',
+      out_file: '../logs/nextjs/web.log',
       merge_logs: true,
       min_uptime: '1m',
       listen_timeout: 1000,
