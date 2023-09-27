@@ -3,6 +3,8 @@ FROM node:${NODE_VERSION}
 
 WORKDIR /srv
 
+COPY ./run_pm2.sh /srv/run_pm2.sh
+
 RUN apt-get update && apt-get install -y openssl
 RUN apt-get dist-upgrade
 RUN corepack enable
@@ -11,7 +13,10 @@ RUN yarn global add pm2
 RUN pm2 install pm2-logrotate
 RUN pm2 set pm2-logrotate:max_size 10K
 
+# 使用這個需要進入手動執行 pm2 start
 # ENTRYPOINT ["sh", "-c", "while true; do sleep 1; done"]
-# WORKDIR /srv/webui
-ENTRYPOINT ["pm2-runtime", "start", "ecosystem.config.js" ]
-# ENTRYPOINT ["pm2", "start", "ecosystem.config.js", "-no-daemon" ]
+# 目前用 entrypoint 都失敗
+# ENTRYPOINT ["pm2-runtime", "start", "ecosystem.config.js" ]
+
+# 直接使用 bash file 執行
+ENTRYPOINT ["bash", "./run_pm2.sh"]
