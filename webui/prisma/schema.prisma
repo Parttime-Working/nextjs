@@ -30,7 +30,7 @@ model rcv_form {
 model item {
   id        Int      @id @default(autoincrement())
   itemno    String
-  item_name String
+  item_spec String   @default("")
   qty       Int
   form      rcv_form @relation(fields: [formid], references: [id])
   formid    Int

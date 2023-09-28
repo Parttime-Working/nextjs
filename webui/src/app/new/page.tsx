@@ -24,17 +24,17 @@ const App = () => {
   const maxItems = 15;
   const [form] = Form.useForm();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  const handleButtonClick = () => {
-    // 在按鈕點擊後，禁用按鈕避免重複送出
-    setButtonDisabled(true);
-  };
   const router = useRouter();
 
   // autocomplete
   const { searchValue, options, search } = useEmployeesAutocomplete();
 
-  const onReset = () => {
-    form.resetFields();
+  const handleAutoBlur = () => {
+    if (options.length > 0) {
+      const firstValue = options[0].value;
+      form.setFieldValue("empno", firstValue)
+      onSelect(firstValue);
+    }
   };
 
   async function onFinish(values: any) {
@@ -73,8 +73,17 @@ const App = () => {
         items: [...form.getFieldValue("items"), { itemno: "", qty: "" }],
       });
     } else {
-        message.error(`已經超過${maxItems}個料號項目，若有需求請另外填單`);
+      message.error(`已經超過${maxItems}個料號項目，若有需求請另外填單`);
     }
+  };
+
+  const onSubmit = () => {
+    // 在按鈕點擊後，禁用按鈕避免重複送出
+    setButtonDisabled(true);
+  };
+
+  const onReset = () => {
+    form.resetFields();
   };
 
   return (
@@ -118,6 +127,7 @@ const App = () => {
               onSelect={onSelect}
               // onSearch={(text) => setOptions(getPanelValue(text))}
               onChange={search}
+              onBlur={handleAutoBlur}
               placeholder="e.g. 22001"
             />
           </Form.Item>
@@ -148,31 +158,61 @@ const App = () => {
               {(fields, { add, remove }) => (
                 <>
                   {fields.map(({ key, name, ...restField }) => (
-                    <Space
-                      key={key}
-                      style={{ display: "flex", marginBottom: 8 }}
-                      align="baseline"
-                    >
-                      <Form.Item
-                        {...restField}
-                        name={[name, "itemno"]}
-                        rules={[{ required: true, message: "料號為必填欄位" }]}
+                    <>
+                      <Space
+                        key={key}
+                        style={{ display: "flex", marginBottom: 8 }}
+                        align="baseline"
                       >
-                        <Input placeholder="料號" />
-                      </Form.Item>
-                      <Form.Item
-                        {...restField}
-                        name={[name, "qty"]}
-                        rules={[{ required: true, message: "數量為必填欄位" }]}
+                        <Form.Item
+                          {...restField}
+                          name={[name, "itemno"]}
+                          rules={[
+                            { required: true, message: "料號為必填欄位" },
+                          ]}
+                        >
+                          <Input placeholder="料號" />
+                        </Form.Item>
+                        <Form.Item
+                          {...restField}
+                          name={[name, "qty"]}
+                          rules={[
+                            { required: true, message: "數量為必填欄位" },
+                          ]}
+                        >
+                          <InputNumber
+                            min={1}
+                            placeholder="數量"
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+
+                        {fields.length > 1 ? (
+                          <MinusCircleOutlined
+                            className="dynamic-delete-button"
+                            onClick={() => remove(name)}
+                          />
+                        ) : null}
+                      </Space>
+                      <div
+                        style={{
+                          display: "block",
+                          marginBottom: 8,
+                        }}
                       >
-                        <InputNumber
-                          min={1}
-                          placeholder="數量"
-                          style={{ width: "100%" }}
-                        />
-                      </Form.Item>
-                      <MinusCircleOutlined onClick={() => remove(name)} />
-                    </Space>
+                        <Form.Item
+                          {...restField}
+                          name={[name, "item_spec"]}
+                          rules={[{ required: true, message: "料號不存在" }]}
+                        >
+                          <Input
+                            placeholder="品名規格"
+                            readOnly={true}
+                            bordered={false}
+                          />
+                        </Form.Item>
+                      </div>
+                    </>
                   ))}
 
                   <Form.Item>
@@ -213,7 +253,7 @@ const App = () => {
                 type="primary"
                 htmlType="submit"
                 ghost
-                onClick={handleButtonClick}
+                onClick={onSubmit}
                 disabled={isButtonDisabled}
               >
                 確認新增

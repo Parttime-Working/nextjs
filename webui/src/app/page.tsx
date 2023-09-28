@@ -31,6 +31,7 @@ const ViewData: React.FC = () => {
     const columns: TableColumnsType<Item> = [
       // { title: "Id", dataIndex: "id", key: "id" },
       { title: "料號", dataIndex: "itemno", key: "itemno" },
+      { title: "物料規格", dataIndex: "item_spec", key: "item_spec" },
       { title: "數量", dataIndex: "qty", key: "qty" },
       // { title: "Formid", dataIndex: "formid", key: "formid" },
     ];

@@ -1,5 +1,5 @@
 import { HttpStatusCode } from "axios";
-import syscoProxyClient from "./lib/syscoProxyClient";
+import { syscoProxyClient, syscoSqlProxyClient } from "./lib/syscoProxyClient";
 import { NextRequest, NextResponse } from "next/server";
 import qs from "qs";
 

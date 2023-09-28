@@ -3,6 +3,7 @@ import { z } from "zod";
 export const ItemSchema = z.object({
   id: z.number().int(),
   itemno: z.string(),
+  item_spec: z.string(),
   qty: z.number().int(),
   formid: z.number().int(),
 });
