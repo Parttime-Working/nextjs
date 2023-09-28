@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  // provider = "sqlserver"
-  provider = "mysql"
+  provider = "sqlserver"
+  // provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -28,11 +28,12 @@ model rcv_form {
 }
 
 model item {
-  id     Int      @id @default(autoincrement())
-  itemno   String // why not name `title/name/...`
-  qty    Int
-  form   rcv_form @relation(fields: [formid], references: [id])
-  formid Int
+  id        Int      @id @default(autoincrement())
+  itemno    String
+  item_name String
+  qty       Int
+  form      rcv_form @relation(fields: [formid], references: [id])
+  formid    Int
 
   @@index([itemno])
 }
