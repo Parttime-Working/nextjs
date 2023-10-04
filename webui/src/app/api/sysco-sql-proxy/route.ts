@@ -1,7 +1,7 @@
 import { HttpStatusCode } from "axios";
-import { syscoProxyClient } from "./lib/syscoProxyClient";
 import { NextRequest, NextResponse } from "next/server";
 import qs from "qs";
+import { syscoSqlProxyClient } from "./lib/syscoSqlProxyClient";
 import { mockDataPromise } from "./mockData";
 
 export async function GET(req: NextRequest) {
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(mockData, { status: HttpStatusCode.Ok });
   }
 
-  const resp = await syscoProxyClient.search(query);
+  const resp = await syscoSqlProxyClient.search(query);
 
   if (!resp) {
     return NextResponse.json(

@@ -15,6 +15,7 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import itemApiClient from "./lib/ItemApiClient";
 import { useEmployeesAutocomplete } from "./hooks/useEmployeesAutocomplete";
 import { useRouter } from "next/navigation";
+import { useItemSpecAutocomplete } from "./hooks/useItemSpecsAutocomplete";
 
 const { TextArea } = Input;
 const { Content } = Layout;
@@ -28,11 +29,25 @@ const App = () => {
 
   // autocomplete
   const { searchValue, options, search } = useEmployeesAutocomplete();
+  const {
+    searchValue: itemValue,
+    options: itemOptions,
+    search: searchItem,
+  } = useItemSpecAutocomplete();
 
   const handleAutoBlur = () => {
     if (options.length > 0) {
       const firstValue = options[0].value;
-      form.setFieldValue("empno", firstValue)
+      form.setFieldValue("empno", firstValue);
+      onSelect(firstValue);
+    }
+  };
+
+
+  const handleAutoBlurItem = () => {
+    if (options.length > 0) {
+      const firstValue = options[0].value;
+      form.setFieldValue("test", firstValue);
       onSelect(firstValue);
     }
   };
@@ -65,6 +80,21 @@ const App = () => {
 
     form.setFieldValue("username", target.cname);
     form.setFieldValue("rcv_dept", target.rcv_dept);
+  };
+
+  const onSelectItem = (data: string) => {
+    console.log(data);
+
+    // const target = itemOptions.find((option) => option.value === data);
+
+    // // setCname
+    // if (!target) {
+    //   // should not happen
+    //   return;
+    // }
+
+    // form.setFieldValue("username", target.cname);
+    // form.setFieldValue("rcv_dept", target.rcv_dept);
   };
 
   const onAddItem = () => {
@@ -132,6 +162,28 @@ const App = () => {
             />
           </Form.Item>
 
+          <Form.Item
+            name="test"
+            label="工號2"
+            rules={[
+              {
+                required: true,
+                message: "請輸入工號2!",
+              },
+            ]}
+          >
+            <AutoComplete
+              value={itemValue}
+              options={itemOptions}
+              // style={{ width: 200 }}
+              onSelect={onSelectItem}
+              // onSearch={(text) => setOptions(getPanelValue(text))}
+              onChange={searchItem}
+              onBlur={handleAutoBlurItem}
+              placeholder="e.g. 22001"
+            />
+          </Form.Item>
+
           <Form.Item label="姓名" name="username">
             <Input readOnly={true} bordered={false} />
           </Form.Item>
@@ -159,11 +211,13 @@ const App = () => {
                 <>
                   {fields.map(({ key, name, ...restField }) => (
                     <>
+
                       <Space
                         key={key}
                         style={{ display: "flex", marginBottom: 8 }}
                         align="baseline"
                       >
+                        <div data-test="for test">{JSON.stringify({ key, name, ...restField }, null, 2)}</div>
                         <Form.Item
                           {...restField}
                           name={[name, "itemno"]}
