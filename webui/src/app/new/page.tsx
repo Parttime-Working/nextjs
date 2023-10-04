@@ -85,10 +85,7 @@ const App = () => {
     form.setFieldValue("rcv_dept", target.rcv_dept);
   };
 
-  const onSelectItem = (
-    data: string,
-    name?: [string, number, string]
-  ) => {
+  const onSelectItem = (data: string, name?: [string, number, string]) => {
     console.log(data);
     const target = itemOptions.find((option) => option.value === data);
     console.log(target);
@@ -101,7 +98,7 @@ const App = () => {
     // 如果 name 存在
     if (name) {
       name[2] = "item_spec";
-      form.setFieldValue(name, target.label);
+      form.setFieldValue(name, target.item_spec);
     }
   };
 
@@ -213,11 +210,7 @@ const App = () => {
                             value={itemValue}
                             options={itemOptions}
                             onSelect={(value, options) =>
-                              onSelectItem(value, [
-                                "items",
-                                name,
-                                "itemno",
-                              ])
+                              onSelectItem(value, ["items", name, "itemno"])
                             }
                             onChange={searchItem}
                             onBlur={getDynamicFieldBlurHandler([
@@ -226,6 +219,8 @@ const App = () => {
                               "itemno",
                             ])}
                             placeholder="料號"
+                            style={{ width: "200px" }}
+                            popupMatchSelectWidth={false}
                           />
                         </Form.Item>
                         <Form.Item
@@ -260,10 +255,11 @@ const App = () => {
                           name={[name, "item_spec"]}
                           rules={[{ required: true, message: "料號不存在" }]}
                         >
-                          <Input
+                          <TextArea
+                            rows={2}
                             placeholder="品名規格"
                             readOnly={true}
-                            bordered={false}
+                            style={{resize: 'none'}}
                           />
                         </Form.Item>
                       </div>

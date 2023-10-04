@@ -27,7 +27,7 @@ export const useItemSpecAutocomplete = () => {
     } = {
       $DB: "SL",
       $TABLE: "item_mst",
-      $FLDS: "item,description,u_m",
+      $FLDS: "item,description,u_m,Uf_Spec",
       $TOP: "10",
     };
 
@@ -45,16 +45,16 @@ export const useItemSpecAutocomplete = () => {
       const item_spec = item?.["description"]?.[0]?.["_"] ?? "";
       // @ts-ignore
       const um = item?.["u_m"]?.[0]?.["_"] ?? "";
+      // @ts-ignore
+      const Uf_Spec = item?.["Uf_Spec"]?.[0]?.["_"] ?? "";
 
       return {
         // @ts-ignore
         ...item,
         // @ts-ignore
-        itemno,
-        item_spec,
-        um,
         value: itemno,
         label: `${itemno} ${item_spec} ${um}`,
+        item_spec: `${item_spec}\n${Uf_Spec} ${um}`,
       };
     });
 
