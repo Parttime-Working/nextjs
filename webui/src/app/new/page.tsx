@@ -43,12 +43,11 @@ const App = () => {
     }
   };
 
-
   const handleAutoBlurItem = () => {
     if (options.length > 0) {
       const firstValue = options[0].value;
       form.setFieldValue("test", firstValue);
-      onSelect(firstValue);
+      onSelectItem(firstValue);
     }
   };
 
@@ -162,28 +161,6 @@ const App = () => {
             />
           </Form.Item>
 
-          <Form.Item
-            name="test"
-            label="工號2"
-            rules={[
-              {
-                required: true,
-                message: "請輸入工號2!",
-              },
-            ]}
-          >
-            <AutoComplete
-              value={itemValue}
-              options={itemOptions}
-              // style={{ width: 200 }}
-              onSelect={onSelectItem}
-              // onSearch={(text) => setOptions(getPanelValue(text))}
-              onChange={searchItem}
-              onBlur={handleAutoBlurItem}
-              placeholder="e.g. 22001"
-            />
-          </Form.Item>
-
           <Form.Item label="姓名" name="username">
             <Input readOnly={true} bordered={false} />
           </Form.Item>
@@ -211,13 +188,14 @@ const App = () => {
                 <>
                   {fields.map(({ key, name, ...restField }) => (
                     <>
-
                       <Space
                         key={key}
                         style={{ display: "flex", marginBottom: 8 }}
                         align="baseline"
                       >
-                        <div data-test="for test">{JSON.stringify({ key, name, ...restField }, null, 2)}</div>
+                        <div data-test="for test">
+                          {JSON.stringify({ key, name, ...restField }, null, 2)}
+                        </div>
                         <Form.Item
                           {...restField}
                           name={[name, "itemno"]}
@@ -225,7 +203,14 @@ const App = () => {
                             { required: true, message: "料號為必填欄位" },
                           ]}
                         >
-                          <Input placeholder="料號" />
+                          <AutoComplete
+                            value={itemValue}
+                            options={itemOptions}
+                            onSelect={onSelectItem}
+                            onChange={searchItem}
+                            onBlur={handleAutoBlurItem}
+                            placeholder="料號"
+                          />
                         </Form.Item>
                         <Form.Item
                           {...restField}

@@ -37,11 +37,9 @@ export const useItemSpecAutocomplete = () => {
         item_spec,
         um,
         value: itemno,
-        label: `${item_spec} ${um}`
+        label: `${itemno} ${item_spec} ${um}`
       };
     });
-
-    console.log(options, 'optionssss')
 
     setSearchValue(data);
     setOptions(options);

@@ -11,7 +11,7 @@ GET http://localhost:3000/items/api/v1/forms?page=1&pageSize=25 HTTP/1.1
 GET http://localhost:3000/items/api/sysco-proxy?Open&comp=SYS&fields=cname,dcode,dptname,level HTTP/1.1
 
 ### 99856 is user input value
-GET http://localhost:3000/items/api/sysco-sql-proxy?$DB=SL&$TABLE=item_mst&$FLDS=item,description,u_m&item=99856* HTTP/1.1
+GET http://localhost:3000/items/api/sysco-sql-proxy?$DB=SL&$TABLE=item_mst&$FLDS=item,description,u_m&$TOP=10&item=99856* HTTP/1.1
 
 ### test company api
 GET http://syspx.sysco/getsqlxml.asp?$DB=SLDEV&$SP=A_TEST&input=temptables&$FIELDS=output&$RS=1 HTTP/1.1
