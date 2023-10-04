@@ -45,12 +45,12 @@ const App = () => {
 
   const getDynamicFieldBlurHandler = (name: [string, number, string]) => {
     return () => {
-      console.log(form.getFieldValue(name));
-
-      if (options.length > 0) {
-        const firstValue = options[0].value;
-        form.setFieldValue(name, firstValue);
-        onSelectItem(firstValue, name);
+      if ((form.getFieldValue(name).length === 0)) {
+        if (itemOptions.length > 0) {
+          const firstValue = itemOptions[0].value;
+          form.setFieldValue(name, firstValue);
+          onSelectItem(firstValue, name);
+        }
       }
     };
   };
@@ -259,7 +259,7 @@ const App = () => {
                             rows={2}
                             placeholder="品名規格"
                             readOnly={true}
-                            style={{resize: 'none'}}
+                            style={{ resize: "none" }}
                           />
                         </Form.Item>
                       </div>
