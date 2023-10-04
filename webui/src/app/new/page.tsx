@@ -43,12 +43,16 @@ const App = () => {
     }
   };
 
-  const handleAutoBlurItem = () => {
-    if (options.length > 0) {
-      const firstValue = options[0].value;
-      form.setFieldValue("test", firstValue);
-      onSelectItem(firstValue);
-    }
+  const getDynamicFieldBlurHandler = (name: [string, number, string]) => {
+    return () => {
+      console.log(form.getFieldValue(name));
+
+      if (options.length > 0) {
+        const firstValue = options[0].value;
+        form.setFieldValue(name, firstValue);
+        onSelectItem(firstValue, name);
+      }
+    };
   };
 
   async function onFinish(values: any) {
@@ -81,19 +85,24 @@ const App = () => {
     form.setFieldValue("rcv_dept", target.rcv_dept);
   };
 
-  const onSelectItem = (data: string) => {
+  const onSelectItem = (
+    data: string,
+    name?: [string, number, string]
+  ) => {
     console.log(data);
+    const target = itemOptions.find((option) => option.value === data);
+    console.log(target);
 
-    // const target = itemOptions.find((option) => option.value === data);
-
-    // // setCname
-    // if (!target) {
-    //   // should not happen
-    //   return;
-    // }
-
-    // form.setFieldValue("username", target.cname);
-    // form.setFieldValue("rcv_dept", target.rcv_dept);
+    // setCname
+    if (!target) {
+      // should not happen
+      return;
+    }
+    // 如果 name 存在
+    if (name) {
+      name[2] = "item_spec";
+      form.setFieldValue(name, target.label);
+    }
   };
 
   const onAddItem = () => {
@@ -193,9 +202,6 @@ const App = () => {
                         style={{ display: "flex", marginBottom: 8 }}
                         align="baseline"
                       >
-                        <div data-test="for test">
-                          {JSON.stringify({ key, name, ...restField }, null, 2)}
-                        </div>
                         <Form.Item
                           {...restField}
                           name={[name, "itemno"]}
@@ -206,9 +212,19 @@ const App = () => {
                           <AutoComplete
                             value={itemValue}
                             options={itemOptions}
-                            onSelect={onSelectItem}
+                            onSelect={(value, options) =>
+                              onSelectItem(value, [
+                                "items",
+                                name,
+                                "itemno",
+                              ])
+                            }
                             onChange={searchItem}
-                            onBlur={handleAutoBlurItem}
+                            onBlur={getDynamicFieldBlurHandler([
+                              "items",
+                              name,
+                              "itemno",
+                            ])}
                             placeholder="料號"
                           />
                         </Form.Item>

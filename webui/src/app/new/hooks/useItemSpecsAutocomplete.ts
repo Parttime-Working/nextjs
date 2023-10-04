@@ -4,7 +4,13 @@ import syscoSqlWebClient from "@/lib/SyscoClient/syscoSqlWebClient";
 import { useEffect, useState } from "react";
 
 // senior time
-type ItemSpec = { itemno: string; item_spec: string; um: string, value: string };
+type ItemSpec = {
+  itemno: string;
+  item_spec: string;
+  um: string;
+  value: string;
+  label: string;
+};
 
 export const useItemSpecAutocomplete = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -12,13 +18,24 @@ export const useItemSpecAutocomplete = () => {
 
   const search = async (data: string) => {
     // GET http://localhost:3000/api/sysco-sql-proxy?$DB=SL&$TABLE=item_mst&$FLDS=item,description,u_m&item=$DB=SL&$TABLE=item_mst&$FLDS=item,description,u_m&item=99856** HTTP/1.1
-    const result = await syscoSqlWebClient.search({
+    let paras: {
+      $DB: string;
+      $TABLE: string;
+      $FLDS: string;
+      $TOP: string;
+      item?: string; // 將 item 視為可選屬性
+    } = {
       $DB: "SL",
       $TABLE: "item_mst",
       $FLDS: "item,description,u_m",
       $TOP: "10",
-      item: `${data}*`,
-    });
+    };
+
+    if (data.length > 0) {
+      paras.item = `${data}*`;
+    }
+
+    const result = await syscoSqlWebClient.search(paras);
 
     const items = result?.data?.Result?.item_mst ?? [];
     const options = items.map((item: unknown) => {
@@ -37,7 +54,7 @@ export const useItemSpecAutocomplete = () => {
         item_spec,
         um,
         value: itemno,
-        label: `${itemno} ${item_spec} ${um}`
+        label: `${itemno} ${item_spec} ${um}`,
       };
     });
 
