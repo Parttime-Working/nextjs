@@ -114,10 +114,12 @@ const App = () => {
 
   const onSubmit = () => {
     // 在按鈕點擊後，禁用按鈕避免重複送出
+    form.submit();
     setButtonDisabled(true);
   };
 
   const onReset = () => {
+    setButtonDisabled(false);
     form.resetFields();
   };
 
@@ -193,9 +195,8 @@ const App = () => {
               {(fields, { add, remove }) => (
                 <>
                   {fields.map(({ key, name, ...restField }) => (
-                    <>
+                    <div key={key}>
                       <Space
-                        key={key}
                         style={{ display: "flex", marginBottom: 8 }}
                         align="baseline"
                       >
@@ -263,7 +264,7 @@ const App = () => {
                           />
                         </Form.Item>
                       </div>
-                    </>
+                    </div>
                   ))}
 
                   <Form.Item>
@@ -302,7 +303,7 @@ const App = () => {
             <Space size={16}>
               <Button
                 type="primary"
-                htmlType="submit"
+                htmlType="button"
                 ghost
                 onClick={onSubmit}
                 disabled={isButtonDisabled}
