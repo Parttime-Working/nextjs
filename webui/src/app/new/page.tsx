@@ -45,9 +45,10 @@ const App = () => {
 
   const getDynamicFieldBlurHandler = (name: [string, number, string]) => {
     return () => {
-      if ((form.getFieldValue(name).length === 0)) {
+      if ((form.getFieldValue(name).length !== 0)) {
         if (itemOptions.length > 0) {
           const firstValue = itemOptions[0].value;
+          console.log(firstValue);
           form.setFieldValue(name, firstValue);
           onSelectItem(firstValue, name);
         }
