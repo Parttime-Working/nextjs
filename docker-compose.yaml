@@ -28,6 +28,6 @@ volumes:
     external: false
 
 networks:
-    default:
-        external:
-            name: service
+  default:
+    name: service
+    external: true

@@ -4,7 +4,7 @@ import syscoWebClient from "@/lib/SyscoClient/syscoWebClient";
 import { useEffect, useState } from "react";
 
 // senior time
-type Employee = { value: string, cname: string, rcv_dept: string}
+type Employee = { value: string; cname: string; rcv_dept: string };
 
 export const useEmployeesAutocomplete = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -26,8 +26,9 @@ export const useEmployeesAutocomplete = () => {
           const value = employee?.["$"]?.empid ?? "";
           // @ts-ignore
           const cname = employee?.cname?.[0] ?? "";
-          // @ts-ignore
-          const rcv_dept = ((employee?.dcode?.[0] ?? "") + ":" + (employee?.dptname?.[0] ?? ""));
+          const rcv_dept =
+            // @ts-ignore
+            (employee?.dcode?.[0] ?? "") + ":" + (employee?.dptname?.[0] ?? "");
 
           return {
             // @ts-ignore
@@ -46,8 +47,8 @@ export const useEmployeesAutocomplete = () => {
 
   const search = async (data: string) => {
     // filter options
-    const tempOptions = allOptions.filter((option: { value: string }) => {
-      return option.value.includes(data);
+    const tempOptions = allOptions.filter((option) => {
+      return option.value.includes(data) || option.cname.includes(data);
     });
 
     setSearchValue(data);
