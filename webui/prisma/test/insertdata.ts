@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 async function createFormWithItems() {
   // 创建一个新表单并插入到数据库
-  const newForm = await prisma.rcv_form.create({
+  const newForm = await prisma.supplementary_form.create({
     data: {
       empno: '22004',
       name: 'XXX',

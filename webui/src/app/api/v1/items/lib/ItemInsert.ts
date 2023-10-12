@@ -21,7 +21,7 @@ async function ItemInsert(data: ItemInsert) {
   }
 
   // 創建一個新表單並插入到數據庫
-  const newForm = await db.rcv_form.create({
+  const newForm = await db.supplementary_form.create({
     data: {
       empno: data.empno,
       name: data.username,

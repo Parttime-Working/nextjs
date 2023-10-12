@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
   };
 
   const [forms, total] = await Promise.all([
-    db.rcv_form.findMany({
+    db.supplementary_form.findMany({
       where: searchCondition,
       skip: query.pageSize * (query.page - 1),
       take: query.pageSize,
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
         items: true,
       },
     }),
-    db.rcv_form.count({ where: searchCondition }),
+    db.supplementary_form.count({ where: searchCondition }),
   ]);
 
 

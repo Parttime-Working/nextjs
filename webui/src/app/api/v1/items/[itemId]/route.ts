@@ -31,7 +31,7 @@ export async function GET(
 
   const { itemId } = pathParams.data;
 
-  const item = await db.item.findUnique({ where: { id: itemId } });
+  const item = await db.supplementary_item.findUnique({ where: { id: itemId } });
 
   // item can be null
   if (!item) {
