@@ -17,7 +17,7 @@ export const useEmployeesAutocomplete = () => {
       .search({
         Open: "",
         comp: "SYS",
-        fields: "cname,dcode,dptname,level",
+        fields: "cname,costcode,dptname,level",
       })
       .then((result) => {
         const employees = result?.data?.emprecords?.employee ?? [];
@@ -28,7 +28,7 @@ export const useEmployeesAutocomplete = () => {
           const cname = employee?.cname?.[0] ?? "";
           const rcv_dept =
             // @ts-ignore
-            (employee?.dcode?.[0] ?? "") + ":" + (employee?.dptname?.[0] ?? "");
+            (employee?.costcode?.[0] ?? "") + ":" + (employee?.dptname?.[0] ?? "");
 
           return {
             // @ts-ignore
