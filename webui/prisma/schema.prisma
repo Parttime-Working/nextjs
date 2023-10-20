@@ -12,14 +12,15 @@ datasource db {
 }
 
 model supplementary_form {
-  id         Int      @id @default(autoincrement())
+  id         Int                  @id @default(autoincrement())
   empno      String
   name       String
   cost_dept  String?
   rcv_dept   String?
   remark     String?
-  created_at DateTime @default(now())
-  process    Int      @default(0)
+  created_at DateTime             @default(now())
+  updated_at DateTime             @updatedAt
+  process    Int                  @default(0)
   items      supplementary_item[]
 
   @@index([empno])
@@ -28,11 +29,11 @@ model supplementary_form {
 }
 
 model supplementary_item {
-  id        Int      @id @default(autoincrement())
+  id        Int                @id @default(autoincrement())
   itemno    String
   qty       Int
   formid    Int
-  item_spec String   @default("")
+  item_spec String             @default("")
   form      supplementary_form @relation(fields: [formid], references: [id])
 
   @@index([itemno])
