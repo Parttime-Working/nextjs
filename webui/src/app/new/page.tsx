@@ -45,12 +45,14 @@ const App = () => {
 
   const getDynamicFieldBlurHandler = (name: [string, number, string]) => {
     return () => {
-      if ((form.getFieldValue(name).length !== 0)) {
+      if (form.getFieldValue(name).length !== 0) {
         if (itemOptions.length > 0) {
           const firstValue = itemOptions[0].value;
           console.log(firstValue);
           form.setFieldValue(name, firstValue);
           onSelectItem(firstValue, name);
+        } else {
+          form.setFieldValue(name, "");
         }
       }
     };
@@ -205,7 +207,10 @@ const App = () => {
                           {...restField}
                           name={[name, "itemno"]}
                           rules={[
-                            { required: true, message: "料號為必填欄位" },
+                            {
+                              required: true,
+                              message: "料號為必填欄位",
+                            },
                           ]}
                         >
                           <AutoComplete

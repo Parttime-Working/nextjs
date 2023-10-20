@@ -45,8 +45,8 @@ const useSearchForms = () => {
               .toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY) ?? "",
         }));
 
-        console.log("hook data", items);
-        console.log("TZ Changed:", cvTimeItems);
+        // console.log("hook data", items);
+        // console.log("TZ Changed:", cvTimeItems);
         setForms(cvTimeItems);
         setPagination(serverRespPagination);
       })

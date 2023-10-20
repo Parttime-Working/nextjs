@@ -31,6 +31,8 @@ export const useItemSpecAutocomplete = () => {
       $TOP: "10",
     };
 
+    // 過濾非英數字符
+    data = data.replace(/[^(a-z)(A-Z)(0-9)]/g, "");
     if (data.length > 0) {
       paras.item = `${data}*`;
     }
@@ -38,6 +40,7 @@ export const useItemSpecAutocomplete = () => {
     const result = await syscoSqlWebClient.search(paras);
 
     const items = result?.data?.Result?.item_mst ?? [];
+
     const options = items.map((item: unknown) => {
       // @ts-ignore:
       const itemno = item?.["item"]?.[0]?.["_"] ?? "";
