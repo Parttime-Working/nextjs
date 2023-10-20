@@ -5,6 +5,7 @@ import {
 import { useEffect, useState } from "react";
 import { FormSearchParams } from "../api/v1/forms/lib/FormSearchParamsSchema";
 import apigWebClient from "@/lib/ApiGatewayClient/apigWebClient";
+import { DateTime } from "luxon";
 import { ZodIssue } from "zod";
 
 const useSearchForms = () => {
@@ -32,8 +33,21 @@ const useSearchForms = () => {
         setIsLoading(false);
 
         const { items, ...serverRespPagination } = resp;
+
+        const cvTimeItems = items.map((item) => ({
+          ...item,
+          created_at:
+            DateTime.fromISO(item.created_at, {
+              zone: "utc",
+            })
+              .setZone("Asia/Taipei")
+              .setLocale("zh-tw")
+              .toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY) ?? "",
+        }));
+
         console.log("hook data", items);
-        setForms(items);
+        console.log("TZ Changed:", cvTimeItems);
+        setForms(cvTimeItems);
         setPagination(serverRespPagination);
       })
       .catch(
