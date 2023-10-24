@@ -219,7 +219,13 @@ const App = () => {
                             onSelect={(value, options) =>
                               onSelectItem(value, ["items", name, "itemno"])
                             }
-                            onChange={searchItem}
+                            onChange={(value) => {
+                              if (!/[^(a-z)(A-Z)(0-9)]/g.test(value)) {
+                                return;
+                              }
+
+                              searchItem(value);
+                            }}
                             onBlur={getDynamicFieldBlurHandler([
                               "items",
                               name,
