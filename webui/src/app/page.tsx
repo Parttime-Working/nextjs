@@ -17,12 +17,24 @@ const ViewData: React.FC = () => {
     useSearchForms();
 
   const columns: TableColumnsType<Form> = [
-    { title: "ID", dataIndex: "id", key: "id" },
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.id - b.id,
+    },
     { title: "工號", dataIndex: "empno", key: "empno" },
     { title: "姓名", dataIndex: "name", key: "name" },
     { title: "請領單位", dataIndex: "rcv_dept", key: "rcv_dept" },
     { title: "備註", dataIndex: "remark", key: "remark" },
-    { title: "填單日期", dataIndex: "created_at", key: "created_at" },
+    {
+      title: "填單日期",
+      dataIndex: "created_at",
+      key: "created_at",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.id - b.id,
+    },
     { title: "狀態", dataIndex: "process", key: "process" },
     // { title: "成本中心", dataIndex: "cost_dept", key: "cost_dept" },
   ];
@@ -59,7 +71,7 @@ const ViewData: React.FC = () => {
           defaultPageSize: 25,
         }}
         rowKey="id"
-        expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
+        expandable={{ expandedRowRender, defaultExpandedRowKeys: ["0"] }}
       />
     </Content>
   );

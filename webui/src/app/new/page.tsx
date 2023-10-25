@@ -220,7 +220,11 @@ const App = () => {
                               onSelectItem(value, ["items", name, "itemno"])
                             }
                             onChange={(value) => {
-                              if (!/[^(a-z)(A-Z)(0-9)]/g.test(value)) {
+                              const illegalString = /\W+/g.test(value);
+                              console.log(value);
+                              console.log(illegalString);
+
+                              if (illegalString) {
                                 return;
                               }
 
