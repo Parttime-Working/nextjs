@@ -31,6 +31,11 @@ export async function GET(req: NextRequest) {
 
   const [forms, total] = await Promise.all([
     db.supplementary_form.findMany({
+      orderBy: [
+        {
+          created_at: 'desc',
+        },
+      ],
       where: searchCondition,
       skip: query.pageSize * (query.page - 1),
       take: query.pageSize,
