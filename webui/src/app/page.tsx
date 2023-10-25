@@ -3,7 +3,16 @@
 import React from "react";
 import { DownOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
-import { Badge, Breadcrumb, Dropdown, Space, Table, Layout, Spin } from "antd";
+import {
+  Badge,
+  Breadcrumb,
+  Dropdown,
+  Space,
+  Table,
+  Layout,
+  Tooltip,
+} from "antd";
+import { CheckOutlined, SyncOutlined } from "@ant-design/icons";
 import useSearchForms from "./hooks/useSearchForms";
 import {
   Form,
@@ -35,7 +44,24 @@ const ViewData: React.FC = () => {
       defaultSortOrder: "descend",
       sorter: (a, b) => a.id - b.id,
     },
-    { title: "狀態", dataIndex: "process", key: "process" },
+    {
+      title: "狀態",
+      dataIndex: "process",
+      key: "process",
+      render: (text, record) => (
+        <span>
+          {record.process === 1 ? (
+            <Tooltip title="已送簽">
+              <CheckOutlined style={{ fontSize: "18px", color: "#41ea2e" }} />
+            </Tooltip>
+          ) : (
+            <Tooltip title="待送簽">
+              <SyncOutlined style={{ fontSize: "18px", color: "#139add" }} />
+            </Tooltip>
+          )}
+        </span>
+      ),
+    },
     // { title: "成本中心", dataIndex: "cost_dept", key: "cost_dept" },
   ];
 
