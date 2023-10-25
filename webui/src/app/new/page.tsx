@@ -211,23 +211,30 @@ const App = () => {
                               required: true,
                               message: "料號為必填欄位",
                             },
+                            {
+                              pattern: /^[a-zA-Z0-9]+$/,
+                              message: "料號只能是英文或數字",
+                            },
                           ]}
+                          initialValue={itemValue}
+                          validateTrigger={["onChange"]}
                         >
                           <AutoComplete
-                            value={itemValue}
                             options={itemOptions}
                             onSelect={(value, options) =>
                               onSelectItem(value, ["items", name, "itemno"])
                             }
                             onChange={(value) => {
-                              const illegalString = /\W+/g.test(value);
+                              const onlyAlphabetNumber = /^[a-zA-Z0-9]+$/.test(
+                                value
+                              );
                               console.log(value);
-                              console.log(illegalString);
+                              console.log(onlyAlphabetNumber);
 
-                              if (illegalString) {
+                              if (!onlyAlphabetNumber) {
                                 return;
                               }
-
+                              console.log("search?");
                               searchItem(value);
                             }}
                             onBlur={getDynamicFieldBlurHandler([
