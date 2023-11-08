@@ -26,6 +26,7 @@ const App = () => {
   const [form] = Form.useForm();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const router = useRouter();
+  const itemTest = /^[a-zA-Z0-9-\s]+$/;
 
   // autocomplete
   const { searchValue, options, search } = useEmployeesAutocomplete();
@@ -48,7 +49,7 @@ const App = () => {
       const fieldValue = form.getFieldValue(name);
       console.log(fieldValue);
       if (fieldValue.length !== 0) {
-        if (itemOptions.length > 0 && /^[a-zA-Z0-9]+$/.test(fieldValue)) {
+        if (itemOptions.length > 0 && itemTest.test(fieldValue)) {
           const firstValue = itemOptions[0].value;
           console.log(firstValue);
           if (firstValue !== fieldValue) {
@@ -217,7 +218,7 @@ const App = () => {
                               message: "料號為必填欄位",
                             },
                             {
-                              pattern: /^[a-zA-Z0-9]+$/,
+                              pattern: itemTest,
                               message: "料號只能是英文或數字",
                             },
                           ]}
@@ -230,7 +231,7 @@ const App = () => {
                               onSelectItem(value, ["items", name, "itemno"])
                             }
                             onChange={(value) => {
-                              const onlyAlphabetNumber = /^[a-zA-Z0-9]+$/.test(
+                              const onlyAlphabetNumber = itemTest.test(
                                 value
                               );
                               if (!onlyAlphabetNumber) {
