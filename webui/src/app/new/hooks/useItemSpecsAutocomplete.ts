@@ -32,7 +32,7 @@ export const useItemSpecAutocomplete = () => {
     };
 
     // 過濾非英數字符
-    data = data.replace(/[^(a-z)(A-Z)(0-9)]/g, "");
+    data = data.replace(/[^[a-zA-Z0-9-]/g, "");
     console.log("search:", data);
 
     if (data.length > 0) {

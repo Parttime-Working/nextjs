@@ -26,7 +26,7 @@ const App = () => {
   const [form] = Form.useForm();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const router = useRouter();
-  const itemTest = /^[a-zA-Z0-9-\s]+$/;
+  const itemTest = /^[a-zA-Z0-9-]+$/;
 
   // autocomplete
   const { searchValue, options, search } = useEmployeesAutocomplete();
