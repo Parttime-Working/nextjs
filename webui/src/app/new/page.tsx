@@ -52,11 +52,14 @@ const App = () => {
         if (itemOptions.length > 0 && /^[a-zA-Z0-9]+$/.test(fieldValue)) {
           const firstValue = itemOptions[0].value;
           console.log(firstValue);
-          form.setFieldValue(name, firstValue);
-          onSelectItem(firstValue, name);
-        } else {
-          form.setFieldValue(name, "");
+          if (firstValue === fieldValue) {
+            return;
+          }
+          // 不要自動補完，會有系統責任歸屬
+          // form.setFieldValue(name, firstValue);
+          // onSelectItem(firstValue, name);
         }
+        form.setFieldValue(name, "");
       }
     };
   };
@@ -146,7 +149,7 @@ const App = () => {
             maxWidth: 600,
           }}
           initialValues={{
-            remember: true,
+            // remember: true,
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
