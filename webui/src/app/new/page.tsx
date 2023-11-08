@@ -59,6 +59,7 @@ const App = () => {
           return;
         }
         form.setFieldValue(name, "");
+        itemOptions.length = 0;
       }
     };
   };
@@ -231,9 +232,7 @@ const App = () => {
                               onSelectItem(value, ["items", name, "itemno"])
                             }
                             onChange={(value) => {
-                              const onlyAlphabetNumber = itemTest.test(
-                                value
-                              );
+                              const onlyAlphabetNumber = itemTest.test(value);
                               if (!onlyAlphabetNumber) {
                                 return;
                               }
