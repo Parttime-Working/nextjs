@@ -51,15 +51,11 @@ const App = () => {
         if (itemOptions.length > 0 && /^[a-zA-Z0-9]+$/.test(fieldValue)) {
           const firstValue = itemOptions[0].value;
           console.log(firstValue);
-          if (firstValue === fieldValue) {
-            onSelectItem(firstValue, name);
-            return;
-          } else {
+          if (firstValue !== fieldValue) {
             await searchItem(fieldValue);
-            form.setFieldValue(name, fieldValue);
-            onSelectItem(fieldValue, name);
-            return;
           }
+          onSelectItem(fieldValue, name);
+          return;
         }
         form.setFieldValue(name, "");
       }
@@ -110,6 +106,7 @@ const App = () => {
     if (name) {
       name[2] = "item_spec";
       form.setFieldValue(name, target.item_spec);
+      itemOptions.length = 0;
     }
   };
 
