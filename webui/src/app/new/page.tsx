@@ -149,7 +149,7 @@ const App = () => {
             maxWidth: 600,
           }}
           initialValues={{
-            // remember: true,
+            remember: true,
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
