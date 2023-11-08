@@ -44,9 +44,12 @@ const App = () => {
   };
 
   const getDynamicFieldBlurHandler = (name: [string, number, string]) => {
-    return () => {
-      if (form.getFieldValue(name).length !== 0) {
-        if (itemOptions.length > 0) {
+    return async () => {
+      const fieldValue = form.getFieldValue(name);
+      console.log(fieldValue);
+      await searchItem(fieldValue);
+      if (fieldValue.length !== 0) {
+        if (itemOptions.length > 0 && /^[a-zA-Z0-9]+$/.test(fieldValue)) {
           const firstValue = itemOptions[0].value;
           console.log(firstValue);
           form.setFieldValue(name, firstValue);
@@ -228,13 +231,9 @@ const App = () => {
                               const onlyAlphabetNumber = /^[a-zA-Z0-9]+$/.test(
                                 value
                               );
-                              console.log(value);
-                              console.log(onlyAlphabetNumber);
-
                               if (!onlyAlphabetNumber) {
                                 return;
                               }
-                              console.log("search?");
                               searchItem(value);
                             }}
                             onBlur={getDynamicFieldBlurHandler([
