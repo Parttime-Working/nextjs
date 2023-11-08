@@ -47,14 +47,17 @@ const App = () => {
     return async () => {
       const fieldValue = form.getFieldValue(name);
       console.log(fieldValue);
-      await searchItem(fieldValue);
       if (fieldValue.length !== 0) {
         if (itemOptions.length > 0 && /^[a-zA-Z0-9]+$/.test(fieldValue)) {
           const firstValue = itemOptions[0].value;
           console.log(firstValue);
           if (firstValue === fieldValue) {
-            form.setFieldValue(name, firstValue);
             onSelectItem(firstValue, name);
+            return;
+          } else {
+            await searchItem(fieldValue);
+            form.setFieldValue(name, fieldValue);
+            onSelectItem(fieldValue, name);
             return;
           }
         }
