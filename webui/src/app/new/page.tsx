@@ -53,11 +53,10 @@ const App = () => {
           const firstValue = itemOptions[0].value;
           console.log(firstValue);
           if (firstValue === fieldValue) {
+            form.setFieldValue(name, firstValue);
+            onSelectItem(firstValue, name);
             return;
           }
-          // 不要自動補完，會有系統責任歸屬
-          // form.setFieldValue(name, firstValue);
-          // onSelectItem(firstValue, name);
         }
         form.setFieldValue(name, "");
       }
