@@ -6,7 +6,7 @@ WORKDIR /srv
 COPY ./run_pm2.sh /srv/run_pm2.sh
 
 RUN apt-get update && apt-get install -y openssl
-RUN apt-get dist-upgrade
+RUN apt-get dist-upgrade -y
 RUN corepack enable
 
 RUN yarn global add pm2
