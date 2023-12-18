@@ -29,11 +29,32 @@ export async function GET(req: NextRequest) {
     ...(query.process !== undefined && { process: query.process }),
   };
 
+  if (process.env.USE_MOCK) {
+    return NextResponse.json(
+      {
+        items: [
+          {
+            id: 1,
+            itemno: "wtf",
+            item_spec: "wt is this?",
+            qty: 1.23,
+            formid: 1,
+          },
+        ],
+        page: 1,
+        pageSize: query.pageSize,
+        total: 1,
+        totalPages: Math.ceil(1 / query.pageSize),
+      },
+      { status: 200 }
+    );
+  }
+
   const [forms, total] = await Promise.all([
     db.supplementary_form.findMany({
       orderBy: [
         {
-          created_at: 'desc',
+          created_at: "desc",
         },
       ],
       where: searchCondition,
@@ -45,7 +66,6 @@ export async function GET(req: NextRequest) {
     }),
     db.supplementary_form.count({ where: searchCondition }),
   ]);
-
 
   return NextResponse.json(
     {
