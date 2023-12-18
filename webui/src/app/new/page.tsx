@@ -256,7 +256,9 @@ const App = () => {
                           ]}
                         >
                           <InputNumber
-                            min={1}
+                            min={0}
+                            precision={2}
+                            step={1}
                             placeholder="數量"
                             style={{ width: "100%" }}
                           />

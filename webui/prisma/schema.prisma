@@ -31,7 +31,7 @@ model supplementary_form {
 model supplementary_item {
   id        Int                @id @default(autoincrement())
   itemno    String
-  qty       Int
+  qty       Decimal            @db.Decimal(9, 3)
   formid    Int
   item_spec String             @default("")
   form      supplementary_form @relation(fields: [formid], references: [id])

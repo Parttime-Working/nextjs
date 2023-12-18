@@ -4,7 +4,7 @@ export const ItemSchema = z.object({
   id: z.number().int(),
   itemno: z.string(),
   item_spec: z.string(),
-  qty: z.number().int(),
+  qty: z.number().multipleOf(0.01),
   formid: z.number().int(),
 });
 

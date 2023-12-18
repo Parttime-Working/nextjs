@@ -8,7 +8,7 @@ export const ItemInsertSchema = z.object({
   items: z.array(
     z.object({
       itemno: z.string(),
-      qty: z.number().int(),
+      qty: z.number().multipleOf(0.01),
     })
   ),
   remark: z.string().optional(),
