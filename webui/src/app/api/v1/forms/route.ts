@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     ...(query.process !== undefined && { process: query.process }),
   };
 
-  if (process.env.USE_MOCK) {
+  if (process.env.USE_MOCK === "true") {
     return NextResponse.json(
       {
         items: [
