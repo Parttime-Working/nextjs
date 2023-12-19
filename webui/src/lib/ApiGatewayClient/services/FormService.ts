@@ -37,7 +37,8 @@ export default class FormService {
 
     if (!parsedResp.success) {
       // send log to server to alert developers??? My company use bugsnag to trace these unexpected errors
-
+      const errorMessage = parsedResp.error; // 调用 error 函数获取错误信息
+      console.error(errorMessage);
       return defaultResp;
     }
 
